@@ -10,9 +10,9 @@
 
 #include <Adafruit_NeoPixel.h>
 
-#define PIN            2  // Pin connected to the NeoPixels
+#define PIN            2  // Data Pin connected to the NeoPixels
 #define NUMPIXELS      16  // Number of NeoPixels in the ring
-#define ADJPIXELS      1  // Number of adjacent pixes to fire
+#define ADJPIXELS      1  // Number of adjacent pixes to fire (more increases perceived brightness)
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
@@ -39,13 +39,13 @@ void loop() {
   // Randomly choose a color from the specified set
   uint32_t color = rainbowColors[random(7)];
 
-  // Set the adjacent four pixels to the random color
+  // Set the pixels to the random color
   for (int i = 0; i < ADJPIXELS; i++) {
     strip.setPixelColor(pixel + i, color);
   }
   strip.show();
 
-  delay(50);  // Keep the pixels on for 0.5 seconds
+  delay(50);  // Keep the pixels on for 50 milliseconds
 
   // Turn off the pixels
   for (int i = 0; i < ADJPIXELS; i++) {
@@ -53,5 +53,5 @@ void loop() {
   }
   strip.show();
 
-  delay(random(50, 100));  // Random off time between bursts (1-3 seconds)
+  delay(random(50, 100));  // Random off time between bursts in milliseconds
 }
